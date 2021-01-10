@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  A Translation Script for Misskey Note | 一个用于misskey贴文的翻译脚本
-// @author       You
+// @author       dogcraft
 // @match        https://m.dogcraft.cn/*
 // @grant        none
 // ==/UserScript==
