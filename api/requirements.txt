@@ -1,0 +1,4 @@
+Flask
+Flask_RESTful
+translators
+flask_redis
