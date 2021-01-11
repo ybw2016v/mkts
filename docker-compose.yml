@@ -8,7 +8,7 @@ services:
     links:
       - db
     ports:
-      - "127.0.0.1:3000:5002"
+      - "127.0.0.1:5002:5002"
     networks:
       - internal_network
       - external_network
