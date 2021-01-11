@@ -49,6 +49,6 @@ location / {
 
 后端主要是用flask_restful与translators拼接起来，并用redis做缓存。
 
-使用时可用参照flask的文档的部署方式，并把redis的配置url改成自己的就可以了。
+使用时可用参照flask的文档中的标准部署方式，并把redis的配置url改成自己的就可以了。
 
 
