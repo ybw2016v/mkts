@@ -5,7 +5,7 @@ A Translation Script for Misskey Note | 一个用于misskey贴文的翻译脚本
 
 ## 使用方式
 
-下面两种方式任选一种即可。强烈建议自建后端API服务。将脚本中的`ApiUrl = 'https://test1-api.dogcraft.top/ts/';`url换成自建的api地址即可。
+下面两种方式任选一种即可。强烈建议自建后端API服务。建好api后端将脚本中的`ApiUrl = 'https://test1-api.dogcraft.top/ts/';`url换成自建的api地址即可。
 
 * **浏览器脚本(Tampermonkey)**
 
@@ -51,6 +51,8 @@ location / {
 
 使用时可用参照flask的文档中的标准部署方式，并把redis的配置url改成自己的就可以了。
 
+如果没有flask等python框架的使用经验，推荐采用docker方式。
+
 ### docker方式
 
 docker方式很简单，首先要有docker全家桶。
@@ -70,4 +72,5 @@ docker-compose up -d
 location /translate/ {
    proxy_set_header Host $http_host;
    proxy_pass http://127.0.0.1:5002;
+}
 ```
