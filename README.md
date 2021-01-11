@@ -3,6 +3,10 @@ A Translation Script for Misskey Note | 一个用于misskey贴文的翻译脚本
 
 后端基于python的[UlionTse/translators](https://github.com/UlionTse/translators)多后端翻译的库，前端是手写的JavaScript，适用于misskey近期版本。由于未对misskey程序作任何更改，只要misskey的前端结构不发生巨大的变化，该脚本将一直保持可用。
 
+效果图：
+
+![效果图](https://p.dogcraft.top/mk/webpublic-26be7d97-cbf9-48c4-89c0-3a8599c8ffef.jpg)
+
 ## 使用方式
 
 下面两种方式任选一种即可。强烈建议自建后端API服务。建好api后端将脚本中的`ApiUrl = 'https://test1-api.dogcraft.top/ts/';`url换成自建的api地址即可。
