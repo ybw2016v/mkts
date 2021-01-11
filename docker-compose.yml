@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  api:
+    # build: .
+    image: dogcraft/mkts-api
+    restart: always
+    links:
+      - db
+    ports:
+      - "127.0.0.1:3000:5002"
+    networks:
+      - internal_network
+      - external_network
+
+  db:
+    restart: always
+    image: redis:4.0-alpine
+    networks:
+      - internal_network
+    volumes:
+      - ./redis:/data
+
+networks:
+  internal_network:
+    internal: true
+  external_network:

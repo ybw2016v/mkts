@@ -34,8 +34,8 @@ def dog_rd_ts(indog, todog):
             res = ts.bing(indog, to_language=todog)
             outdog = res+' | 由bing翻译'
         if rd == 2:
-            res = ts.youdao(indog, to_language=todog)
-            outdog = res+' | 由youdao翻译'
+            res = ts.google(indog, to_language=todog)
+            outdog = res+' | 由google翻译'
         if rd == 3:
             res = ts.alibaba(indog, to_language=todog)
             outdog = res+' | 由alibaba翻译'
