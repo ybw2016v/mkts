@@ -14,7 +14,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     'use strict';
 
 
-    console.log('Misskey Translate Script');
+    console.log('Misskey Translate Script v1.0');
 
 
 
@@ -124,10 +124,11 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
 
     window.onload = function () {
-        console.log('页面加载完毕')
+        console.log('页面加载完毕');
+        var dogui = localStorage.getItem('lang');
         var observer = new MutationObserver(callback);
         var sl = document.getElementsByClassName('article');
-        var ar = document.getElementsByClassName("content")[0];
+        var ar = (dogui=='chat')?document.getElementsByClassName("main")[0]:document.getElementsByClassName("content")[0];
         observer.observe(ar, config);
         for (let si = 0; si < sl.length; si++) {
             const sl_dog = sl[si];

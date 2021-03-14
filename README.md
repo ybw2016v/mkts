@@ -78,3 +78,6 @@ location /translate/ {
    proxy_pass http://127.0.0.1:5002;
 }
 ```
+## ChangeLog
+
+2021.03.14 1.0版本，开始支持misskey的`chatui`。
