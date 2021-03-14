@@ -10,7 +10,7 @@
 
 var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
-(function() {
+(function () {
     'use strict';
 
 
@@ -19,10 +19,10 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
 
     var cat = localStorage.getItem('lang');
-    if (cat==null) {
+    if (cat == null) {
         var lang_dog = navigator.language || navigator.userLanguage;
     } else {
-        lang_dog=cat;
+        lang_dog = cat;
     }
 
     lang_dog = navigator.language || navigator.userLanguage;//获取浏览器的语言
@@ -43,7 +43,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
             var dogbt = document.createElement('button');
             dogbt.innerText = 'Translate';
             dogbt.className = 'button _button';
-            dogbt.style.backgroundColor="rgba(0,0,200,0.5)";
+            dogbt.style.backgroundColor = "rgba(0,0,200,0.5)";
             dogbt.addEventListener('click', dog_fy);//绑定翻译函数
             eldog.appendChild(cl);
             eldog.appendChild(dogfy);
@@ -63,7 +63,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
             if (dog_fy_el.ct == 0) {
                 var hdog = pdog.getElementsByClassName('havbbuyv')[0].innerText;
                 var post_dog = { 'c': hdog, 't': lang_dog };
-                dog_fy_el.innerText='Translating……';
+                dog_fy_el.innerText = 'Translating……';
                 var uiy = await fetch(ApiUrl, {
                     method: 'POST',
                     body: JSON.stringify(post_dog),
@@ -79,18 +79,18 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
                 }
                 dog_fy_el.innerText = `\n${res_dog}`;
                 dog_fy_el.ct = 1
-                this.innerText='folded';
+                this.innerText = 'folded';
 
             } else {
                 if (dog_fy_el.ct == 2) {
                     console.log(dog_fy_el.style.display)
-                    dog_fy_el.style.display="";
+                    dog_fy_el.style.display = "";
                     dog_fy_el.ct = 1;
-                    this.innerText='folded';
+                    this.innerText = 'folded';
                 } else if (dog_fy_el.ct == 1) {
-                    dog_fy_el.style.display="none";
+                    dog_fy_el.style.display = "none";
                     dog_fy_el.ct = 2;
-                    this.innerText='unfolded';
+                    this.innerText = 'unfolded';
                 }
             }
         } else {
@@ -102,18 +102,20 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     var sj = []
     // 当观察到突变时执行的回调函数
     var callback = function (mutationsList) {
-        //console.log('doge');
         mutationsList.forEach(function (item, index) {
             if (item.type == 'childList') {
                 for (let iy_dog = 0; iy_dog < item.addedNodes.length; iy_dog++) {
                     const iadog = item.addedNodes[iy_dog];
                     if (iadog.getElementsByClassName == undefined) {
                     } else {
-                        var sld = iadog.getElementsByClassName('content');
+                        sld = iadog.getElementsByClassName('content');
                         if (sld.length > 0) {
-                            var tty = sld[0].getElementsByClassName('text');
-                            if (tty.length > 0) {
-                                dog_add_fy(tty[0]);
+                            for (let ct_dog = 0; ct_dog < sld.length; ct_dog++) {
+                                const sdldog = sld[ct_dog];
+                                tty = sdldog.getElementsByClassName('text');
+                                if (tty.length > 0) {
+                                    dog_add_fy(tty[0]);
+                                }
                             }
                         }
                     }
@@ -125,10 +127,10 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
     window.onload = function () {
         console.log('页面加载完毕');
-        var dogui = localStorage.getItem('lang');
+        var dogui = localStorage.getItem('ui');
         var observer = new MutationObserver(callback);
         var sl = document.getElementsByClassName('article');
-        var ar = (dogui=='chat')?document.getElementsByClassName("main")[0]:document.getElementsByClassName("content")[0];
+        var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
         observer.observe(ar, config);
         for (let si = 0; si < sl.length; si++) {
             const sl_dog = sl[si];

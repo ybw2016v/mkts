@@ -93,10 +93,14 @@ var callback = function (mutationsList) {
                 } else {
                     sld = iadog.getElementsByClassName('content');
                     if (sld.length > 0) {
-                        tty = sld[0].getElementsByClassName('text');
-                        if (tty.length > 0) {
+                        for (let ct_dog = 0; ct_dog < sld.length; ct_dog++) {
+                            const sdldog = sld[ct_dog];
+                            tty = sdldog.getElementsByClassName('text');
+                            if (tty.length > 0) {
                             dog_add_fy(tty[0]);
                         }
+                        }
+                        
                     }
                 }
             }
@@ -107,7 +111,7 @@ var callback = function (mutationsList) {
 
 window.onload = function () {
     console.log('页面加载完毕');
-    var dogui = localStorage.getItem('lang');
+    var dogui = localStorage.getItem('ui');
     var observer = new MutationObserver(callback);
     var sl = document.getElementsByClassName('article');
     var ar = (dogui=='chat')?document.getElementsByClassName("main")[0]:document.getElementsByClassName("content")[0];
