@@ -10,11 +10,13 @@
 
 var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
+
 (function () {
     'use strict';
 
 
     console.log('Misskey Translate Script v1.0');
+    var vdog = localStorage.getItem('v');
 
 
 
@@ -130,7 +132,20 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
         var dogui = localStorage.getItem('ui');
         var observer = new MutationObserver(callback);
         var sl = document.getElementsByClassName('article');
-        var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
+        //var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
+        if (vdog >= "12.76.0" ) {
+            if (dogui=='chat') {
+                var ar = document.getElementsByClassName("main")[0];
+            } else if(dogui=='pope') {
+                var ar = document.getElementsByClassName("content")[0];
+            }
+            else{
+                var ar = document.getElementsByClassName("main")[0];
+            }
+        }
+        else {
+            var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
+        }
         observer.observe(ar, config);
         for (let si = 0; si < sl.length; si++) {
             const sl_dog = sl[si];
