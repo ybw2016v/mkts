@@ -15,7 +15,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     'use strict';
 
 
-    console.log('Misskey Translate Script v1.0');
+    console.log('Misskey Translate Script v1.3');
     var vdog = localStorage.getItem('v');
 
 
@@ -127,29 +127,47 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     };
 
 
-    window.onload = function () {
-        console.log('页面加载完毕');
+    function getar() {
         var dogui = localStorage.getItem('ui');
-        var observer = new MutationObserver(callback);
-        var sl = document.getElementsByClassName('article');
-        //var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
-        if (vdog >= "12.76.0" ) {
-            if (dogui=='chat') {
+        if (dogui == null) {
+            localStorage.setItem("ui", "default");
+            dogui = "default";
+        }
+        if (vdog >= "12.76.0") {
+            if (dogui == 'chat') {
                 var ar = document.getElementsByClassName("main")[0];
-            } else if(dogui=='pope') {
+            } else if (dogui == 'pope') {
                 var ar = document.getElementsByClassName("content")[0];
             }
-            else{
+            else {
                 var ar = document.getElementsByClassName("main")[0];
             }
         }
         else {
             var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
         }
-        observer.observe(ar, config);
-        for (let si = 0; si < sl.length; si++) {
-            const sl_dog = sl[si];
-            dog_add_fy(sl_dog.getElementsByClassName('content')[0].getElementsByClassName('text')[0]);
+        if (ar == null) {
+            console.log("没找到，等一秒");
+            setTimeout(getar, 1000);
+            return null;
+        }
+        else {
+            for (let si = 0; si < sl.length; si++) {
+                const sl_dog = sl[si];
+                dog_add_fy(sl_dog.getElementsByClassName('main')[0].getElementsByClassName('text')[0]);
+            }
+            console.log("找到了");
+            var observer = new MutationObserver(callback);
+            observer.observe(ar, config);
+            return "dog"
         }
     }
+
+
+    window.onload = function () {
+        console.log('页面加载完毕');
+        sl = document.getElementsByClassName('article');
+        getar();
+    }
+
 })();

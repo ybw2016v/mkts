@@ -81,3 +81,5 @@ location /translate/ {
 ## ChangeLog
 
 2021.03.14 1.0版本，开始支持misskey的`chatui`。
+
+2021.10.17 1.3版本，支持misskey `v12.93.0`。
