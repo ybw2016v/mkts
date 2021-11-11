@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Misskey Translation Script
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.4
 // @description  A Translation Script for Misskey Note | 一个用于misskey贴文的翻译脚本
 // @author       dogcraft
 // @match        https://m.dogcraft.cn/*
