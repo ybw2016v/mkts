@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Misskey Translation Script
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  A Translation Script for Misskey Note | 一个用于misskey贴文的翻译脚本
 // @author       dogcraft
 // @match        https://m.dogcraft.cn/*
@@ -133,7 +133,10 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
             localStorage.setItem("ui", "default");
             dogui = "default";
         }
-        if (vdog >= "12.76.0") {
+        if (vdog >= "10.98.0") {
+            var ar = document.getElementsByClassName("dkgtipfy")[0];
+        }
+        else if (vdog >= "12.76.0") {
             if (dogui == 'chat') {
                 var ar = document.getElementsByClassName("main")[0];
             } else if (dogui == 'pope') {

@@ -1,4 +1,4 @@
-console.log('Misskey Translate Script v1.4');
+console.log('Misskey Translate Script v1.5');
 ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
 var cat = localStorage.getItem('lang');
@@ -115,7 +115,10 @@ function getar() {
         localStorage.setItem("ui", "default");
         dogui = "default";
     }
-    if (vdog >= "12.76.0") {
+    if (vdog>="10.98.0"){
+        var ar = document.getElementsByClassName("dkgtipfy")[0];
+        }
+        else if (vdog >= "12.76.0") {
         if (dogui == 'chat') {
             var ar = document.getElementsByClassName("main")[0];
         } else if (dogui == 'pope') {
