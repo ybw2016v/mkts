@@ -115,10 +115,18 @@ function getar() {
         localStorage.setItem("ui", "default");
         dogui = "default";
     }
-    if (vdog>="10.98.0"){
-        var ar = document.getElementsByClassName("dkgtipfy")[0];
+    if (vdog >= "12.100.0") {
+        if (dogui == "classic") {
+            var ar = document.getElementsByClassName("columns")[0];
         }
-        else if (vdog >= "12.76.0") {
+        else {
+            var ar = document.getElementsByClassName("dkgtipfy")[0];
+        }
+    }
+    else if (vdog >= "12.98.0") {
+        var ar = document.getElementsByClassName("dkgtipfy")[0];
+    }
+    else if (vdog >= "12.76.0") {
         if (dogui == 'chat') {
             var ar = document.getElementsByClassName("main")[0];
         } else if (dogui == 'pope') {
