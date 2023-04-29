@@ -5,8 +5,8 @@ from flask_redis import FlaskRedis
 import translators as ts
 import random
 
-dog_lan = ['ar', 'auto', 'de', 'en', 'es', 'fr', 'hi', 'id',
-           'it', 'jp', 'kr', 'ms', 'pt', 'ru', 'th', 'tr', 'vi', 'zh']
+dog_lan=['ar', 'auto', 'de', 'en', 'es', 'fr', 'hi', 'id', 'it', 'jp', 'kr', 'ms', 'pt', 'ru', 'th', 'tr', 'vi', 'zh']
+trs=[ 'baidu', 'bing','cloudYi', 'deepl', 'iciba', 'iflyrec', 'qqFanyi', 'sogou', 'youdao']
 parser = reqparse.RequestParser()
 parser.add_argument('c', type=str, help='内容')
 parser.add_argument('t', type=str, help='目标')
@@ -21,24 +21,18 @@ rc = FlaskRedis(app, decode_responses=True)
 DOGTIME = 43200
 
 
-def dog_rd_ts(indog, todog):
+import translators as ts
+import random
+
+def dog_rd_ts(indog,todog):
     """
     随机翻译
     """
-    rd = random.randint(0, 3)
+    
     if todog in dog_lan:
-        if rd == 0:
-            res = ts.google(indog, to_language=todog)
-            outdog = res+' | 由google翻译'
-        if rd == 1:
-            res = ts.bing(indog, to_language=todog)
-            outdog = res+' | 由bing翻译'
-        if rd == 2:
-            res = ts.youdao(indog, to_language=todog)
-            outdog = res+' | 由youdao翻译'
-        if rd == 3:
-            res = ts.alibaba(indog, to_language=todog)
-            outdog = res+' | 由alibaba翻译'
+        rs=random.choice(trs)
+        res=ts.translate_text(indog,translator=rs,to_language=todog)
+        outdog=res+" | 由{}翻译".format(rs)
     else:
         outdog = '#&$*#@!@*@&#!'
     return outdog
