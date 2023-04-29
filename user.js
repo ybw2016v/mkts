@@ -15,58 +15,88 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     'use strict';
 
 
-    console.log('Misskey Translate Script v1.3');
-    var vdog = localStorage.getItem('v');
-
-
+    console.log('Misskey Translate Script v2.0');
+    ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
     var cat = localStorage.getItem('lang');
+    var vdog = localStorage.getItem('v');
     if (cat == null) {
         var lang_dog = navigator.language || navigator.userLanguage;
     } else {
         lang_dog = cat;
     }
-
-    lang_dog = navigator.language || navigator.userLanguage;//获取浏览器的语言
+    //获取浏览器的语言
     lang_dog = lang_dog.substr(0, 2);
 
     function dog_add_fy(eldog) {
         //添加翻译按钮、区域以及绑定点击事件
+        if (eldog.className == 'article') {
+            dog_add_fy_old(eldog);
+            return;
+        }
         if (eldog.fanyi == 1) {
-            console.log('已经添加过了，重复添加。')
+            // console.log('已经添加过了，重复添加。')
         } else {
-            var cl = document.createElement('div');
-            cl.className = '.clear';
-            var cl2 = document.createElement('div');
-            cl2.className = '.clear';
-            var dogfy = document.createElement('span');
-            dogfy.className = 'fanyi';
-            dogfy.ct = 0;
-            var dogbt = document.createElement('button');
-            dogbt.innerText = 'Translate';
-            dogbt.className = 'button _button';
-            dogbt.style.backgroundColor = "rgba(0,0,200,0.5)";
+            const dogbt = document.createElement("button");
+            const btclass = Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].childNodes[0].getAttribute("class")
+            dogbt.setAttribute("class", btclass);
+            const nicon = document.createElement("i");
+            nicon.setAttribute("class", "ti ti-language");
+            dogbt.appendChild(nicon);
+            Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].appendChild(dogbt);
             dogbt.addEventListener('click', dog_fy);//绑定翻译函数
-            eldog.appendChild(cl);
-            eldog.appendChild(dogfy);
-            eldog.appendChild(cl2);
-            eldog.appendChild(dogbt);
+            const ctp = eldog.querySelector('div[style="container-type: inline-size;"]')
+            const ctix = ctp.getElementsByTagName('div')[0];
+            // console.log(ctix);
+            ctix.setAttribute("class", "fanyi-cont");
+            const fyc = document.createElement("div");
+            fyc.setAttribute("class", "fanyi");
+            fyc.ct = 0;
+            ctp.appendChild(fyc);
             eldog.fanyi = 1;
         }
-
     }
+
+    function dog_add_fy_old(eldog) {
+        if (eldog.fanyi == 1) {
+            // console.log('已经添加过了，重复添加。')
+            return;
+        }
+        const dogbt = document.createElement("button");
+        const btclass = Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].getElementsByClassName("button")[0].getAttribute("class")
+        dogbt.setAttribute("class", btclass);
+        const nicon = document.createElement("i");
+        nicon.setAttribute("class", "ti ti-language");
+        dogbt.appendChild(nicon);
+        Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].appendChild(dogbt);
+        dogbt.addEventListener('click', dog_fy);//绑定翻译函数
+        const ctdog = eldog.getElementsByClassName('content')[0];
+        const ydog = ctdog.getElementsByClassName('text')[0];
+        ydog.setAttribute("class", "text fanyi-cont");
+        const fyc = document.createElement("div");
+        fyc.setAttribute("class", "fanyi");
+        fyc.ct = 0;
+        ctdog.appendChild(fyc);
+        eldog.fanyi = 1;
+    }
+
+
 
     async function dog_fy() {
         //从后端获得翻译文本并写入到html中
-        var pdog = this.parentElement;
-        var ldog = pdog.getElementsByClassName('fanyi');
-        if (ldog.length > 0) {
-            var dog_fy_el = ldog[0];
+        // console.log('翻译中');
+        const pdog = this.parentElement.parentElement;
+
+        const ldog = pdog.getElementsByClassName('fanyi');
+
+        if (ldog) {
+            const dog_fy_el = ldog[0];
             if (dog_fy_el.ct == 0) {
-                var hdog = pdog.getElementsByClassName('havbbuyv')[0].innerText;
-                var post_dog = { 'c': hdog, 't': lang_dog };
-                dog_fy_el.innerText = 'Translating……';
-                var uiy = await fetch(ApiUrl, {
+                console.log('还没有翻译');
+                const hdog = pdog.getElementsByClassName('fanyi-cont')[0].innerText;
+                post_dog = { 'c': hdog, 't': lang_dog };
+                dog_fy_el.innerText = '正在翻译中……';
+                uiy = await fetch(ApiUrl, {
                     method: 'POST',
                     body: JSON.stringify(post_dog),
                     headers: new Headers({
@@ -74,25 +104,28 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
                     })
                 });
                 if (uiy.status == 200) {
-                    var rt = await uiy.json();
-                    var res_dog = rt.r;
+                    rt = await uiy.json();
+                    res_dog = rt.r;
                 } else {
                     res_dog = '接口不对劲';
                 }
                 dog_fy_el.innerText = `\n${res_dog}`;
                 dog_fy_el.ct = 1
-                this.innerText = 'folded';
+                this.childNodes[0].setAttribute("class", "ti ti-language-off");
+                this.style = "color: red;";
 
             } else {
+                // console.log('已经翻译过了');
                 if (dog_fy_el.ct == 2) {
-                    console.log(dog_fy_el.style.display)
                     dog_fy_el.style.display = "";
                     dog_fy_el.ct = 1;
-                    this.innerText = 'folded';
+                    this.childNodes[0].setAttribute("class", "ti ti-language-off");
+                    this.style = "color: red;";
                 } else if (dog_fy_el.ct == 1) {
                     dog_fy_el.style.display = "none";
                     dog_fy_el.ct = 2;
-                    this.innerText = 'unfolded';
+                    this.childNodes[0].setAttribute("class", "ti ti-language");
+                    this.style = "color: blue;";
                 }
             }
         } else {
@@ -100,23 +133,28 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
         }
     }
 
+
+
     var config = { attributes: false, childList: true, subtree: true };
-    var sj = []
+    sj = []
     // 当观察到突变时执行的回调函数
     var callback = function (mutationsList) {
         mutationsList.forEach(function (item, index) {
             if (item.type == 'childList') {
                 for (let iy_dog = 0; iy_dog < item.addedNodes.length; iy_dog++) {
                     const iadog = item.addedNodes[iy_dog];
-                    if (iadog.getElementsByClassName == undefined) {
+                    if (iadog.getElementsByTagName == undefined) {
+                        // console.log('不是元素');
                     } else {
-                        sld = iadog.getElementsByClassName('content');
+                        // console.log('是元素');
+                        sld = iadog.getElementsByTagName('article');
                         if (sld.length > 0) {
                             for (let ct_dog = 0; ct_dog < sld.length; ct_dog++) {
                                 const sdldog = sld[ct_dog];
-                                tty = sdldog.getElementsByClassName('text');
-                                if (tty.length > 0) {
-                                    dog_add_fy(tty[0]);
+                                if (sdldog.parentElement.tagName != "A") {
+                                    dog_add_fy(sdldog);
+                                } else {
+                                    // console.log('不是要找的元素');
                                 }
                             }
                         }
@@ -128,35 +166,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
 
     function getar() {
-        var dogui = localStorage.getItem('ui');
-        if (dogui == null) {
-            localStorage.setItem("ui", "default");
-            dogui = "default";
-        }
-        if (vdog >= "12.100.0") {
-            if (dogui == "classic") {
-                var ar = document.getElementsByClassName("columns")[0];
-            }
-            else {
-                var ar = document.getElementsByClassName("dkgtipfy")[0];
-            }
-        }
-        else if (vdog >= "10.98.0") {
-            var ar = document.getElementsByClassName("dkgtipfy")[0];
-        }
-        else if (vdog >= "12.76.0") {
-            if (dogui == 'chat') {
-                var ar = document.getElementsByClassName("main")[0];
-            } else if (dogui == 'pope') {
-                var ar = document.getElementsByClassName("content")[0];
-            }
-            else {
-                var ar = document.getElementsByClassName("main")[0];
-            }
-        }
-        else {
-            var ar = (dogui == 'chat') ? document.getElementsByClassName("main")[0] : document.getElementsByClassName("content")[0];
-        }
+        ar = document.getElementById('misskey_app');
         if (ar == null) {
             console.log("没找到，等一秒");
             setTimeout(getar, 1000);
@@ -165,7 +175,9 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
         else {
             for (let si = 0; si < sl.length; si++) {
                 const sl_dog = sl[si];
-                dog_add_fy(sl_dog.getElementsByClassName('main')[0].getElementsByClassName('text')[0]);
+                if (sl_dog.parentElement.tagName != "A") {
+                    dog_add_fy(sl_dog);
+                }
             }
             console.log("找到了");
             var observer = new MutationObserver(callback);
@@ -177,7 +189,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
     window.onload = function () {
         console.log('页面加载完毕');
-        sl = document.getElementsByClassName('article');
+        sl = document.getElementsByTagName('article');
         getar();
     }
 
