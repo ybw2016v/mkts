@@ -31,7 +31,7 @@ function dog_add_fy(eldog) {
         const ctp = eldog.querySelector('div[style="container-type: inline-size;"]')
         const ctix = ctp.getElementsByTagName('div')[0];
         // console.log(ctix);
-        ctix.setAttribute("class", "fanyi-cont");
+        ctix.setAttribute("neko", "fanyi-cont");
         const fyc = document.createElement("div");
         fyc.setAttribute("class", "fanyi");
         fyc.ct=0;
@@ -55,7 +55,7 @@ function dog_add_fy_old(eldog) {
     dogbt.addEventListener('click', dog_fy);//绑定翻译函数
     const ctdog=eldog.getElementsByClassName('content')[0];
     const ydog = ctdog.getElementsByClassName('text')[0];
-    ydog.setAttribute("class", "text fanyi-cont");
+    ydog.setAttribute("neko", "text fanyi-cont");
     const fyc = document.createElement("div");
     fyc.setAttribute("class", "fanyi");
     fyc.ct=0;
@@ -76,7 +76,7 @@ async function dog_fy() {
         const dog_fy_el = ldog[0];
         if (dog_fy_el.ct == 0) {
             console.log('还没有翻译');
-            const hdog = pdog.getElementsByClassName('fanyi-cont')[0].innerText;
+            const hdog = pdog.querySelector('div[neko="fanyi-cont"]').innerText;
             post_dog = { 'c': hdog, 't': lang_dog };
             dog_fy_el.innerText = '正在翻译中……';
             uiy = await fetch(ApiUrl, {
@@ -92,7 +92,8 @@ async function dog_fy() {
             } else {
                 res_dog = '接口不对劲';
             }
-            dog_fy_el.innerText = `\n${res_dog}`;
+            dog_fy_el.innerText = `${res_dog}`;
+            dog_fy_el.style.cssText=" margin-top: 1em; border: dashed 2px;border-radius: 10px;padding: 16px;";
             dog_fy_el.ct = 1
             this.childNodes[0].setAttribute("class", "ti ti-language-off");
             this.style="color: red;";
