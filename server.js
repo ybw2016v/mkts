@@ -55,7 +55,7 @@ function dog_add_fy_old(eldog) {
     dogbt.addEventListener('click', dog_fy);//绑定翻译函数
     const ctdog=eldog.getElementsByClassName('content')[0];
     const ydog = ctdog.getElementsByClassName('text')[0];
-    ydog.setAttribute("neko", "text fanyi-cont");
+    ydog.setAttribute("neko", "fanyi-cont");
     const fyc = document.createElement("div");
     fyc.setAttribute("class", "fanyi");
     fyc.ct=0;
