@@ -61,7 +61,7 @@ location / {
 
 docker方式很简单，首先要有docker全家桶。
 
-```
+``` bash
 git clone https://github.com/ybw2016v/mkts.git
 git pull
 docker-compose up -d
@@ -72,12 +72,13 @@ docker-compose up -d
 
 还可以与misskey共用一个nginx配置,在misskey的配置文件内部添加一个location配置即可。
 
-```
+``` nginx
 location /translate/ {
    proxy_set_header Host $http_host;
    proxy_pass http://127.0.0.1:5002;
 }
 ```
+
 ## ChangeLog
 
 2021.03.14 1.0版本，开始支持misskey的`chatui`。
@@ -89,3 +90,5 @@ location /translate/ {
 2021.12.04 1.5版本，支持misskey `v12.98.0`。
 
 2023.04.29 2.0版本，支持misskey `v13.11.3`，不支持更早版本。
+
+2023.06.08 2.3版本，支持misskey `v13.13.1`。

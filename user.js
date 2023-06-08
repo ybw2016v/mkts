@@ -15,7 +15,7 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
     'use strict';
 
 
-    console.log('Misskey Translate Script v2.0');
+    console.log('Misskey Translate Script v2.3');
 
     var cat = localStorage.getItem('lang');
     var vdog = localStorage.getItem('v');
@@ -36,20 +36,28 @@ var ApiUrl = 'https://test1-api.dogcraft.top/ts/';
         if (eldog.fanyi == 1) {
             // console.log('已经添加过了，重复添加。')
         } else {
-            const dogbt = document.createElement("button");
-            const btclass = Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].childNodes[0].getAttribute("class")
-            dogbt.setAttribute("class", btclass);
-            const nicon = document.createElement("i");
-            nicon.setAttribute("class", "ti ti-language");
+            const dogbt = document.createElement('button');
+            const btclass = Array.from(eldog.getElementsByTagName('footer')).slice(- 1)[0].childNodes[2].getAttribute('class')
+            dogbt.setAttribute('class', btclass);
+            const nicon = document.createElement('i');
+            nicon.setAttribute('class', 'ti ti-language');
             dogbt.appendChild(nicon);
-            Array.from(eldog.getElementsByTagName("footer")).slice(-1)[0].appendChild(dogbt);
-            dogbt.addEventListener('click', dog_fy);//绑定翻译函数
-            const ctp = eldog.querySelector('div[style="container-type: inline-size;"]')
-            const ctix = ctp.getElementsByTagName('div')[0];
-            // console.log(ctix);
-            ctix.setAttribute("neko", "fanyi-cont");
-            const fyc = document.createElement("div");
-            fyc.setAttribute("class", "fanyi");
+            Array.from(eldog.getElementsByTagName('footer')).slice(- 1)[0].appendChild(dogbt);
+            dogbt.addEventListener('click', dog_fy); //绑定翻译函数
+            const qhi =  eldog.querySelector('div[style="container-type: inline-size;"]');
+            var ctp;
+            var ctix;
+            if (qhi != null) {
+                ctp = qhi;
+                ctix = qhi.getElementsByTagName('div')[0];
+            } else {
+                const hui = eldog.childNodes[1].querySelector('span[style="white-space: pre-wrap;"]');
+                ctp = hui.parentElement.parentElement;
+                ctix = hui.parentElement;
+            }
+            ctix.setAttribute('neko', 'fanyi-cont');
+            const fyc = document.createElement('div');
+            fyc.setAttribute('class', 'fanyi');
             fyc.ct = 0;
             ctp.appendChild(fyc);
             eldog.fanyi = 1;
