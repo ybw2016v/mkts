@@ -1,4 +1,4 @@
-console.log('Misskey Translate Script v2.3');
+console.log('Misskey Translate Script v2.4');
 ApiUrl = 'https://test1-api.dogcraft.top/ts/';
 
 var cat = localStorage.getItem('lang');
@@ -21,7 +21,7 @@ function dog_add_fy(eldog) {
         // console.log('已经添加过了，重复添加。')
     } else {
         const dogbt = document.createElement('button');
-        const btclass = Array.from(eldog.getElementsByTagName('footer')).slice(- 1)[0].childNodes[2].getAttribute('class')
+        const btclass = Array.from(eldog.getElementsByTagName('footer')).slice(- 1)[0].childNodes[1].getAttribute('class')
         dogbt.setAttribute('class', btclass);
         const nicon = document.createElement('i');
         nicon.setAttribute('class', 'ti ti-language');
